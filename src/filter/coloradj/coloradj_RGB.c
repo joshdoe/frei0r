@@ -34,6 +34,12 @@ Copyright (C) 2010  Marko Cebokli    http://lea.hamradio.si/~s57uuu
 
 #include <frei0r.h>
 
+#if defined(_MSC_VER)
+__inline const float rintf(float x){
+  return (long int)(x+0.5);
+}
+#endif /* _MSC_VER */
+
 //------------------------------------------------------
 //computes x to the power p
 //only for positive x
@@ -368,7 +374,7 @@ f0r_instance_t f0r_construct(unsigned int width, unsigned int height)
 {
 inst *in;
 
-in=calloc(1,sizeof(inst));
+in=(inst *)calloc(1,sizeof(inst));
 in->w=width;
 in->h=height;
 in->r = 0.5;

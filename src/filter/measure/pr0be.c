@@ -174,7 +174,7 @@ sprintf(s,"%s",ss);
 //u=units    0=0.0-1.0    1=0-255
 //m=sign  0=unsigned
 //mm=1  print min/max
-void izpis(char *str, char *lab, stat s, int u, int m, int mm)
+void izpis(char *str, char *lab, stats s, int u, int m, int mm)
 {
 char fs[256],as[16],rs[16],ns[16],xs[16];
 
@@ -281,7 +281,7 @@ void sonda(float_rgba *s, int w, int h, int x, int y, int sx, int sy, int *poz, 
 int x0,y0,vx,vy,vp,np,np2,xn,yn;
 int i,j,xp,yp;
 char string[256];
-stat yy,rr,gg,bb,aa,uu,vv;
+stats yy,rr,gg,bb,aa,uu,vv;
 float al,be,h2,c1,c2,ss,va,li;
 
 float_rgba white={1.0,1.0,1.0,1.0};
@@ -607,7 +607,7 @@ f0r_instance_t f0r_construct(unsigned int width, unsigned int height)
 {
 inst *in;
 
-in=calloc(1,sizeof(inst));
+in=(inst *)calloc(1,sizeof(inst));
 in->w=width;
 in->h=height;
 

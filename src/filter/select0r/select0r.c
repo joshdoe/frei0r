@@ -33,6 +33,10 @@ Copyright (C) 2010  Marko Cebokli    http://lea.hamradio.si/~s57uuu
 #include <math.h>
 #include <assert.h>
 
+#if defined(_MSC_VER)
+#define hypotf _hypotf
+#endif
+
 typedef struct
 	{
 	float r;
@@ -690,7 +694,7 @@ f0r_instance_t f0r_construct(unsigned int width, unsigned int height)
 {
 inst *in;
 
-in=calloc(1,sizeof(inst));
+in=(inst *)calloc(1,sizeof(inst));
 
 in->w=width;
 in->h=height;

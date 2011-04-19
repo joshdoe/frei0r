@@ -251,8 +251,8 @@ f0r_instance_t f0r_construct(unsigned int width, unsigned int height)
   inst->curvesPosition = 3;
   inst->pointNumber = 2;
   inst->formula = 1;
-  inst->bspline = calloc(1, sizeof(char));
-  inst->bsplineMap = malloc(sizeof(double));
+  inst->bspline = (char *)calloc(1, sizeof(char));
+  inst->bsplineMap = (double *)malloc(sizeof(double));
   inst->points[0] = 0;
   inst->points[1] = 0;
   inst->points[2] = 1;
@@ -303,7 +303,7 @@ void f0r_set_param_value(f0r_instance_t instance,
               }
           } else {
               if ((int)inst->channel != (int)(tmp * 10)) {
-                inst->channel = (enum CHANNELS)(tmp * 10);
+                inst->channel = (enum CHANNELS)(int)(tmp * 10);
                 if (strlen(inst->bspline))
                     updateBsplineMap(instance);
               }
@@ -552,7 +552,7 @@ int tokenise(char *string, const char *delimiter, char ***tokens)
     char *result = NULL;
     result = strtok(input, delimiter);
     while (result != NULL) {
-        *tokens = realloc(*tokens, (count + 1) * sizeof(char *));
+        *tokens = (char **)realloc(*tokens, (count + 1) * sizeof(char *));
         (*tokens)[count++] = strdup(result);
         result = strtok(NULL, delimiter);
     }
@@ -570,7 +570,7 @@ void updateBsplineMap(f0r_instance_t instance)
 
     int range = inst->channel == CHANNEL_HUE ? 361 : 256;
     free(inst->bsplineMap);
-    inst->bsplineMap = malloc(range * sizeof(double));
+    inst->bsplineMap = (double *)malloc(range * sizeof(double));
     // fill with default values, in case the spline does not cover the whole range
     if (inst->channel == CHANNEL_HUE) {
         for(int i = 0; i < 361; ++i)
@@ -586,17 +586,17 @@ void updateBsplineMap(f0r_instance_t instance)
     /*
      * string -> list of points
      */
-    char **pointStr = calloc(1, sizeof(char *));
+    char **pointStr = (char **)calloc(1, sizeof(char *));
     int count = tokenise(inst->bspline, "|", &pointStr);
 
     bspline_point points[count];
 
     for (int i = 0; i < count; ++i) {
-        char **positionsStr = calloc(1, sizeof(char *));
+        char **positionsStr = (char **)calloc(1, sizeof(char *));
         int positionsNum = tokenise(pointStr[i], "#", &positionsStr);
         if (positionsNum == 3) { // h1, p, h2
             for (int j = 0; j < positionsNum; ++j) {
-                char **coords = calloc(1, sizeof(char *));
+                char **coords = (char **)calloc(1, sizeof(char *));
                 int coordsNum = tokenise(positionsStr[j], ";", &coords);
                 if (coordsNum == 2) { // x, y
                     points[i][j].x = atof(coords[0]);

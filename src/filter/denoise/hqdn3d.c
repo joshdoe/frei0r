@@ -149,7 +149,7 @@ void deNoise(unsigned char *Frame,        // mpi->planes[x]
     unsigned short* FrameAnt=(*FrameAntPtr);
 
     if(!FrameAnt){
-	(*FrameAntPtr)=FrameAnt=malloc(W*H*sizeof(unsigned short));
+	(*FrameAntPtr)=FrameAnt=(unsigned short *)malloc(W*H*sizeof(unsigned short));
 	for (Y = 0; Y < H; Y++){
 	    unsigned short* dst=&FrameAnt[Y*W];
 	    unsigned char* src=Frame+Y*sStride;
@@ -296,19 +296,19 @@ f0r_instance_t f0r_construct(unsigned int width, unsigned int height)
 {
 inst *in;
 
-in=calloc(1,sizeof(inst));
+in=(inst *)calloc(1,sizeof(inst));
 in->w=width;
 in->h=height;
 
 in->LumSpac=4;
 in->LumTmp=6;
-in->vps.Line=calloc(width,sizeof(int));
-in->Rplani=calloc(width*height,sizeof(unsigned char));
-in->Gplani=calloc(width*height,sizeof(unsigned char));
-in->Bplani=calloc(width*height,sizeof(unsigned char));
-in->Rplano=calloc(width*height,sizeof(unsigned char));
-in->Gplano=calloc(width*height,sizeof(unsigned char));
-in->Bplano=calloc(width*height,sizeof(unsigned char));
+in->vps.Line=(unsigned int*)calloc(width,sizeof(int));
+in->Rplani=(unsigned char *)calloc(width*height,sizeof(unsigned char));
+in->Gplani=(unsigned char *)calloc(width*height,sizeof(unsigned char));
+in->Bplani=(unsigned char *)calloc(width*height,sizeof(unsigned char));
+in->Rplano=(unsigned char *)calloc(width*height,sizeof(unsigned char));
+in->Gplano=(unsigned char *)calloc(width*height,sizeof(unsigned char));
+in->Bplano=(unsigned char *)calloc(width*height,sizeof(unsigned char));
 
 PrecalcCoefs(in->vps.Coefs[0],in->LumSpac);
 PrecalcCoefs(in->vps.Coefs[1],in->LumTmp);

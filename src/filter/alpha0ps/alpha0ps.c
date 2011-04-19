@@ -426,7 +426,7 @@ f0r_instance_t f0r_construct(unsigned int width, unsigned int height)
 {
 inst *in;
 
-in=calloc(1,sizeof(inst));
+in=(inst *)calloc(1,sizeof(inst));
 in->w=width;
 in->h=height;
 

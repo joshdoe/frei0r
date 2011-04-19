@@ -59,6 +59,12 @@ typedef struct
 	float a;
 	} float_rgba;
 
+#if defined(_MSC_VER)
+__inline const float rintf(float x){
+  return (long int)(x+0.5);
+}
+#endif /* _MSC_VER */
+
 
 //------------------------------------------------------------------
 void draw_rectangle(float_rgba *s, int w, int h, float x, float y, float wr, float hr, float_rgba c)
@@ -756,7 +762,7 @@ void f0r_get_param_info(f0r_param_info_t* info, int param_index)
 //--------------------------------------------------
 f0r_instance_t f0r_construct(unsigned int width, unsigned int height)
 {
-  tp_inst_t* inst = calloc(1, sizeof(*inst));
+  tp_inst_t* inst = (tp_inst_t*)calloc(1, sizeof(*inst));
   inst->w  = width; 
   inst->h = height;
 

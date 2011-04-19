@@ -201,16 +201,16 @@ f0r_instance_t f0r_construct(unsigned int width, unsigned int height)
 inst *in;
 int z;
 
-in=calloc(1,sizeof(inst));
+in=(inst*)calloc(1,sizeof(inst));
 in->w=width;
 in->h=height;
 
-in->Rplani=calloc(width*height,sizeof(unsigned char));
-in->Gplani=calloc(width*height,sizeof(unsigned char));
-in->Bplani=calloc(width*height,sizeof(unsigned char));
-in->Rplano=calloc(width*height,sizeof(unsigned char));
-in->Gplano=calloc(width*height,sizeof(unsigned char));
-in->Bplano=calloc(width*height,sizeof(unsigned char));
+in->Rplani=(unsigned char *)calloc(width*height,sizeof(unsigned char));
+in->Gplani=(unsigned char *)calloc(width*height,sizeof(unsigned char));
+in->Bplani=(unsigned char *)calloc(width*height,sizeof(unsigned char));
+in->Rplano=(unsigned char *)calloc(width*height,sizeof(unsigned char));
+in->Gplano=(unsigned char *)calloc(width*height,sizeof(unsigned char));
+in->Bplano=(unsigned char *)calloc(width*height,sizeof(unsigned char));
 
 //defaults
 in->fp.amount=0.0;
@@ -221,7 +221,7 @@ in->ac=0;
 
 memset(in->fp.SC,0,sizeof(in->fp.SC));
 for( z=0; z<in->fp.msizeY; z++ )
-    in->fp.SC[z] = calloc(in->w+in->fp.msizeX , sizeof(*(in->fp.SC[z])));
+    in->fp.SC[z] = (uint32_t *)calloc(in->w+in->fp.msizeX , sizeof(*(in->fp.SC[z])));
 
 return (f0r_instance_t)in;
 }
@@ -278,7 +278,7 @@ p->fp.msizeY=p->size;
 
 memset(p->fp.SC,0,sizeof(p->fp.SC));
 for( z=0; z<p->fp.msizeY; z++ )
-    p->fp.SC[z] = calloc(p->w+p->fp.msizeX , sizeof(*(p->fp.SC[z])));
+    p->fp.SC[z] = (uint32_t *)calloc(p->w+p->fp.msizeX , sizeof(*(p->fp.SC[z])));
 
 }
 

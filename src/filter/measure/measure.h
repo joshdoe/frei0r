@@ -40,7 +40,7 @@ typedef struct		//statistics
 	float rms;
 	float min;
 	float max;
-	} stat;
+	} stats;
 
 typedef struct		//profile data and statistics
 	{
@@ -52,13 +52,13 @@ typedef struct		//profile data and statistics
 	float y[8192];
 	float u[8192];
 	float v[8192];
-	stat sr;
-	stat sg;
-	stat sb;
-	stat sa;
-	stat sy;
-	stat su;
-	stat sv;
+	stats sr;
+	stats sg;
+	stats sb;
+	stats sa;
+	stats sy;
+	stats su;
+	stats sv;
 	int xz,xk,yz,yk;	//start and end point
 	} profdata;
 
@@ -70,7 +70,7 @@ typedef struct		//profile data and statistics
 //w=width of image (stride)
 //x,y=position of the center of the group in pixels
 //sx,sy=size of the group in pixels
-void meri_y(float_rgba *s, stat *yy, int color, int x, int y, int w, int sx, int sy)
+void meri_y(float_rgba *s, stats *yy, int color, int x, int y, int w, int sx, int sy)
 {
 float wr,wg,wb,luma,nf;
 int xp,yp;
@@ -116,7 +116,7 @@ yy->rms=sqrtf((yy->rms-nf*yy->avg*yy->avg)/nf);
 //w=width of image (stride)
 //x,y=position of the center of the group in pixels
 //sx,sy=size of the group in pixels
-void meri_rgb(float_rgba *s, stat *r, stat *g, stat *b, int x, int y, int w, int sx, int sy)
+void meri_rgb(float_rgba *s, stats *r, stats *g, stats *b, int x, int y, int w, int sx, int sy)
 {
 float nf;
 int xp,yp;
@@ -168,7 +168,7 @@ b->rms=sqrtf((b->rms-nf*b->avg*b->avg)/nf);
 //w=width of image (stride)
 //x,y=position of the center of the group in pixels
 //sx,sy=size of the group in pixels
-void meri_a(float_rgba *s, stat *a, int x, int y, int w, int sx, int sy)
+void meri_a(float_rgba *s, stats *a, int x, int y, int w, int sx, int sy)
 {
 float nf;
 int xp,yp;
@@ -205,7 +205,7 @@ a->rms=sqrtf((a->rms-nf*a->avg*a->avg)/nf);
 //w=width of image (stride)
 //x,y=position of the center of the group in pixels
 //sx,sy=size of the group in pixels
-void meri_uv(float_rgba *s, stat *u, stat *v, int color, int x, int y, int w, int sx, int sy)
+void meri_uv(float_rgba *s, stats *u, stats *v, int color, int x, int y, int w, int sx, int sy)
 {
 float wr,wg,wb,uu,vv,nf;
 int xp,yp;

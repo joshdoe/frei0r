@@ -543,7 +543,7 @@ f0r_instance_t f0r_construct(unsigned int width, unsigned int height)
 {
   int x0,y0,velx,vely;
   float_rgba c;
-  tp_inst_t* inst = calloc(1, sizeof(*inst));
+  tp_inst_t* inst = (tp_inst_t*)calloc(1, sizeof(*inst));
   inst->w  = width; 
   inst->h = height;
 
